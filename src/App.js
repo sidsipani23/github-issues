@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import React, { Fragment } from "react";
+import Issues from "./components/Issues";
+import Header from "./components/layout/Header";
+import Navbar from "./components/layout/Navbar";
+import OpenClose from "./components/OpenClose";
+import Search from "./components/Search";
+import store from "./store";
+import { Provider } from "react-redux";
+const App = () => {
+	return (
+		<Provider store={store}>
+			<Fragment>
+				<Navbar />
+				<Header />
+				<Search />
+				<OpenClose />
+				<Issues />
+			</Fragment>
+		</Provider>
+	);
+};
 
 export default App;
