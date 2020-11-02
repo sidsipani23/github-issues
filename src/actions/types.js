@@ -5,3 +5,7 @@ export const INCR_STAR = "INCR_STAR";
 export const INCR_FORK = "INCR_FORK";
 export const FILTER_ISSUES = "FILTER_ISSUES";
 export const SET_LOADING = "SET_LOADING";
+export const GET_OPEN = "GET_OPEN";
+export const GET_WATCH = "GET_WATCH";
+export const GET_STAR = "GET_STAR";
+export const GET_FORK = "GET_FORK";

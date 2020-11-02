@@ -1,9 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import {
+	getWatch,
+	incrWatch,
+	getStar,
+	incrStar,
+	getFork,
+	incrFork,
+} from "../../actions/githubActions";
+const Header = ({
+	git: { watch, star, fork },
+	getWatch,
+	incrWatch,
+	getStar,
+	incrStar,
+	getFork,
+	incrFork,
+}) => {
+	useEffect(() => {
+		getWatch();
+		getStar();
+		getFork();
+		incrWatch();
+		incrFork();
+		incrStar();
+	}, []);
 
-const Header = () => {
-	var [watch, setWatch] = useState(1);
-	const [fork, setFork] = useState(1);
-	const [star, setStar] = useState(1);
 	return (
 		<div className='card'>
 			<div className='card-body' style={{ position: "relative" }}>
@@ -23,12 +45,12 @@ const Header = () => {
 				>
 					/ create-react-app
 				</span>
-				<span style={{ position: "absolute", left: "68%" }}>
+				<span style={{ position: "absolute", left: "66%" }}>
 					<button
 						className='btn'
 						type='button'
 						onClick={(e) => {
-							setWatch(watch + 1);
+							incrWatch();
 							e.preventDefault();
 						}}
 					>
@@ -41,7 +63,7 @@ const Header = () => {
 						className='btn '
 						type='button'
 						onClick={(e) => {
-							setStar(star + 1);
+							incrStar();
 							e.preventDefault();
 						}}
 					>
@@ -49,12 +71,12 @@ const Header = () => {
 						<span class='Counter mr-1'>{star}</span>
 					</button>
 				</span>
-				<span style={{ position: "absolute", left: "87%" }}>
+				<span style={{ position: "absolute", left: "89.5%" }}>
 					<button
 						className='btn '
 						type='button'
 						onClick={(e) => {
-							setFork(fork + 1);
+							incrFork();
 							e.preventDefault();
 						}}
 					>
@@ -70,5 +92,14 @@ const Header = () => {
 		</div>
 	);
 };
-
-export default Header;
+const mapStateToProps = (state) => ({
+	git: state.github,
+});
+export default connect(mapStateToProps, {
+	getWatch,
+	incrWatch,
+	getStar,
+	incrStar,
+	getFork,
+	incrFork,
+})(Header);

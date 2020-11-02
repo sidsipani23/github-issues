@@ -1,6 +1,15 @@
 import React from "react";
 
 const IssueItem = ({ issue }) => {
+	function daysBetween(date1String) {
+		var toDate = new Date().toISOString().slice(0, 10);
+		var fromDate = date1String;
+		var diff = Math.floor(
+			(Date.parse(toDate) - Date.parse(fromDate)) / 86400000
+		);
+		return diff;
+	}
+
 	return (
 		<div class='Box' style={{ margin: "5px 35px" }}>
 			<div class='Box-header'>
@@ -14,7 +23,7 @@ const IssueItem = ({ issue }) => {
 					<span
 						style={{
 							fontFamily: "monospace",
-							fontWeight: "600",
+							fontWeight: "400",
 							fontSize: "1rem",
 						}}
 					>
@@ -29,7 +38,7 @@ const IssueItem = ({ issue }) => {
 											background: `#${label.color}`,
 											borderRadius: "10px",
 											fontSize: "0.75rem",
-											padding: "1px",
+											padding: "3px",
 										}}
 									>
 										{label.name}
@@ -38,8 +47,12 @@ const IssueItem = ({ issue }) => {
 						  })
 						: null}
 				</h3>
-				#{issue.number} opened on {issue.created_at.split("T")[0]} by{" "}
-				{issue.user.login}
+				#{issue.number} opened{" "}
+				{daysBetween(issue.created_at.split("T")[0]) === 0
+					? "today "
+					: daysBetween(issue.created_at.split("T")[0])}
+				{daysBetween(issue.created_at.split("T")[0]) !== 0 && " days ago "}
+				by {issue.user.login}
 				{issue.comments !== 0 && (
 					<span style={{ float: "right" }}>
 						<i className='far fa-comment'></i>
